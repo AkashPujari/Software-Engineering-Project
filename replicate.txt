@@ -1,0 +1,142 @@
+First enter the 'training and inference' directory. 
+
+1) Finetuning:
+CodeBERT: 
+python run.py \
+    --output_dir=./saved_models \
+    --model_type=roberta \
+    --config_name=microsoft/codebert-base \
+    --model_name_or_path=microsoft/codebert-base \
+    --tokenizer_name=roberta-base \
+    --do_train \
+    --train_data_file=../dataset/train.txt \
+    --eval_data_file=../dataset/valid.txt \
+    --test_data_file=../dataset/test.txt \
+    --epoch 2 \
+    --block_size 400 \
+    --train_batch_size 8 \
+    --eval_batch_size 16 \
+    --learning_rate 3e-5 \
+    --max_grad_norm 1.0 \
+    --evaluate_during_training \
+    --seed 123456 2>&1| tee train.log
+    
+RoBERTa:
+python run.py \
+    --output_dir=./saved_models_roberta \
+    --model_type=roberta \
+    --config_name=roberta-base \
+    --model_name_or_path=roberta-base \
+    --tokenizer_name=roberta-base \
+    --do_train \
+    --train_data_file=../dataset/train.txt \
+    --eval_data_file=../dataset/valid.txt \
+    --test_data_file=../dataset/test.txt \
+    --epoch 2 \
+    --block_size 400 \
+    --train_batch_size 8 \
+    --eval_batch_size 16 \
+    --learning_rate 3e-5 \
+    --max_grad_norm 1.0 \
+    --evaluate_during_training \
+    --seed 123456 2>&1| tee train.log
+    
+DistilRoBERTa:
+python run.py \
+    --output_dir=./saved_models_distilroberta \
+    --model_type=roberta \
+    --config_name=distilroberta-base \
+    --model_name_or_path=distilroberta-base \
+    --tokenizer_name=roberta-base \
+    --do_train \
+    --train_data_file=../dataset/train.txt \
+    --eval_data_file=../dataset/valid.txt \
+    --test_data_file=../dataset/test.txt \
+    --epoch 2 \
+    --block_size 400 \
+    --train_batch_size 8 \
+    --eval_batch_size 16 \
+    --learning_rate 3e-5 \
+    --max_grad_norm 1.0 \
+    --evaluate_during_training \
+    --seed 123456 2>&1| tee train.log
+    
+You should now have 3 model checkpoints in the locations saved_models/checkpoint-best-f1/model.bin, saved_models_roberta/checkpoint-best-f1/model.bin and saved_models_distilroberta/checkpoint-best-f1/model.bin
+
+2) Inference:
+CodeBERT:
+python run.py \
+    --output_dir=./saved_models \
+    --model_type=roberta \
+    --config_name=microsoft/codebert-base \
+    --model_name_or_path=microsoft/codebert-base \
+    --tokenizer_name=roberta-base \
+    --do_eval \
+    --do_test \
+    --train_data_file=../dataset/train.txt \
+    --eval_data_file=../dataset/valid.txt \
+    --test_data_file=../dataset/test.txt \
+    --epoch 2 \
+    --block_size 400 \
+    --train_batch_size 8 \
+    --eval_batch_size 16 \
+    --learning_rate 3e-5 \
+    --max_grad_norm 1.0 \
+    --evaluate_during_training \
+    --seed 123456 2>&1| tee test.log
+    
+    
+RoBERTa:
+python run.py \
+    --output_dir=./saved_models_roberta \
+    --model_type=roberta \
+    --config_name=roberta-base \
+    --model_name_or_path=roberta-base \
+    --tokenizer_name=roberta-base \
+    --do_eval \
+    --do_test \
+    --train_data_file=../dataset/train.txt \
+    --eval_data_file=../dataset/valid.txt \
+    --test_data_file=../dataset/test.txt \
+    --epoch 2 \
+    --block_size 400 \
+    --train_batch_size 8 \
+    --eval_batch_size 16 \
+    --learning_rate 3e-5 \
+    --max_grad_norm 1.0 \
+    --evaluate_during_training \
+    --seed 123456 2>&1| tee test.log
+    
+DistilRoBERTa:
+python run.py \
+    --output_dir=./saved_models_distilroberta \
+    --model_type=roberta \
+    --config_name=distilroberta-base \
+    --model_name_or_path=distilroberta-base \
+    --tokenizer_name=roberta-base \
+    --do_eval \
+    --do_test \
+    --train_data_file=../dataset/train.txt \
+    --eval_data_file=../dataset/valid.txt \
+    --test_data_file=../dataset/test.txt \
+    --epoch 2 \
+    --block_size 400 \
+    --train_batch_size 8 \
+    --eval_batch_size 16 \
+    --learning_rate 3e-5 \
+    --max_grad_norm 1.0 \
+    --evaluate_during_training \
+    --seed 123456 2>&1| tee test.log
+    
+You should now have a predictions.txt file in each of three directories corresponding to the three saved models.
+
+3) Testing:
+CodeBERT:
+python ../Evaluation/get_results.py -a ../dataset/test.txt -p saved_models/predictions.txt
+
+RoBERTa:
+python ../Evaluation/get_results.py -a ../dataset/test.txt -p saved_models_roberta/predictions.txt
+
+DistilRoBERTa:
+python ../Evaluation/get_results.py -a ../dataset/test.txt -p saved_models_distilroberta/predictions.txt
+
