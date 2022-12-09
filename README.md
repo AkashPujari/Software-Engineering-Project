@@ -126,7 +126,7 @@ python ../evaluator/evaluator.py -a ../dataset/test.txt -p saved_models/predicti
 
 The results on the test set are shown as below:
 
-| Method     | Precision |  Recall   |    F1     |
+| Model     | Precision |  Recall   |    F1     |
 | ---------- | :-------: | :-------: | :-------: |
 | CodeBERT | 0.9341 | 0.9567 | 0.9453 |
 | RoBERTa | 0.9041 | 0.9360 | 0.9198 |
