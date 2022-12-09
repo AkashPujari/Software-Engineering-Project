@@ -1,4 +1,4 @@
-First enter the 'training and inference' directory. 
+First enter the 'code' directory. 
 
 1) Finetuning:
 CodeBERT: 
