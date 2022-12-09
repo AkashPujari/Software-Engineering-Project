@@ -64,8 +64,6 @@ We also provide a pipeline that fine-tunes [CodeBERT](https://arxiv.org/pdf/2002
 
 ### Fine-tune
 
-We only use 10% training data to fine-tune and 10% valid data to evaluate.
-
 
 ```shell
 cd code
@@ -91,7 +89,6 @@ python run.py \
 
 ### Inference
 
-We use full test data for inference. 
 
 ```shell
 cd code
